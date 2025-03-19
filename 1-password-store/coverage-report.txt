@@ -1,0 +1,166 @@
+Compiling 22 files with Solc 0.8.18
+Solc 0.8.18 finished in 3.09s
+Compiler run successful!
+Analysing contracts...
+Running tests...
+
+Ran 2 tests for test/PasswordStore.t.sol:PasswordStoreTest
+[PASS] test_non_owner_reading_password_reverts() (gas: 13469)
+[PASS] test_owner_can_set_password() (gas: 24145)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 849.74µs (328.11µs CPU time)
+
+Ran 1 test suite in 10.21ms (849.74µs CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+Uncovered for script/DeployPasswordStore.s.sol:
+
+Uncovered for src/PasswordStore.sol:
+
+Anchors for Contract "ScriptBase" (solc 0.8.18, source ID 1):
+
+Anchors for Contract "stdStorage" (solc 0.8.18, source ID 10):
+
+Anchors for Contract "PasswordStoreTest" (solc 0.8.18, source ID 21):
+
+Anchors for Contract "StdStyle" (solc 0.8.18, source ID 11):
+
+Anchors for Contract "stdMath" (solc 0.8.18, source ID 9):
+
+Anchors for Contract "Script" (solc 0.8.18, source ID 2):
+
+Anchors for Contract "safeconsole" (solc 0.8.18, source ID 18):
+
+Anchors for Contract "StdChains" (solc 0.8.18, source ID 4):
+
+Anchors for Contract "StdCheats" (solc 0.8.18, source ID 5):
+
+Anchors for Contract "Test" (solc 0.8.18, source ID 13):
+
+Anchors for Contract "IMulticall3" (solc 0.8.18, source ID 17):
+
+Anchors for Contract "StdCheatsSafe" (solc 0.8.18, source ID 5):
+
+Anchors for Contract "stdError" (solc 0.8.18, source ID 6):
+
+Anchors for Contract "VmSafe" (solc 0.8.18, source ID 14):
+
+Anchors for Contract "TestBase" (solc 0.8.18, source ID 1):
+
+Anchors for Contract "StdAssertions" (solc 0.8.18, source ID 3):
+
+Anchors for Contract "PasswordStore" (solc 0.8.18, source ID 20):
+- IC 5 -> Item 13
+- Runtime code
+  - Refers to item: Line (location: source ID 20, lines 18..21, bytes 418..469, hits: 2)
+- IC 5 -> Item 14
+- Runtime code
+  - Refers to item: Function "constructor" (location: source ID 20, lines 18..21, bytes 418..469, hits: 2)
+- IC 18 -> Item 15
+- Runtime code
+  - Refers to item: Line (location: source ID 20, lines 19..20, bytes 442..462, hits: 2)
+- IC 18 -> Item 16
+- Runtime code
+  - Refers to item: Statement (location: source ID 20, lines 19..20, bytes 442..462, hits: 2)
+- IC 59 -> Item 17
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 26..30, bytes 615..744, hits: 3)
+- IC 59 -> Item 18
+- Creation code
+  - Refers to item: Function "setPassword" (location: source ID 20, lines 26..30, bytes 615..744, hits: 3)
+- IC 118 -> Item 19
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 27..28, bytes 682..706, hits: 3)
+- IC 118 -> Item 20
+- Creation code
+  - Refers to item: Statement (location: source ID 20, lines 27..28, bytes 682..706, hits: 3)
+- IC 134 -> Item 21
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 28..29, bytes 716..737, hits: 3)
+- IC 134 -> Item 22
+- Creation code
+  - Refers to item: Statement (location: source ID 20, lines 28..29, bytes 716..737, hits: 3)
+- IC 87 -> Item 23
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 35..41, bytes 884..1072, hits: 2)
+- IC 87 -> Item 24
+- Creation code
+  - Refers to item: Function "getPassword" (location: source ID 20, lines 35..41, bytes 884..1072, hits: 2)
+- IC 183 -> Item 25
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 36..37, bytes 959..980, hits: 2)
+- IC 183 -> Item 26
+- Creation code
+  - Refers to item: Statement (location: source ID 20, lines 36..37, bytes 959..980, hits: 2)
+- IC 266 -> Item 27
+- Creation code
+  - Refers to item: Branch (branch: 0, path: 0) (location: source ID 20, lines 36..39, bytes 982..1039, hits: 1)
+- IC 266 -> Item 28
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 37..38, bytes 996..1028, hits: 1)
+- IC 266 -> Item 29
+- Creation code
+  - Refers to item: Statement (location: source ID 20, lines 37..38, bytes 996..1028, hits: 1)
+- IC 316 -> Item 30
+- Creation code
+  - Refers to item: Line (location: source ID 20, lines 39..40, bytes 1048..1065, hits: 1)
+- IC 316 -> Item 31
+- Creation code
+  - Refers to item: Statement (location: source ID 20, lines 39..40, bytes 1048..1065, hits: 1)
+
+Anchors for Contract "stdJson" (solc 0.8.18, source ID 8):
+
+Anchors for Contract "console2" (solc 0.8.18, source ID 16):
+
+Anchors for Contract "DSTest" (solc 0.8.18, source ID 0):
+
+Anchors for Contract "console" (solc 0.8.18, source ID 15):
+
+Anchors for Contract "stdStorageSafe" (solc 0.8.18, source ID 10):
+
+Anchors for Contract "StdInvariant" (solc 0.8.18, source ID 7):
+
+Anchors for Contract "StdUtils" (solc 0.8.18, source ID 12):
+
+Anchors for Contract "CommonBase" (solc 0.8.18, source ID 1):
+
+Anchors for Contract "DeployPasswordStore" (solc 0.8.18, source ID 19):
+- IC 59 -> Item 0
+- Creation code
+  - Refers to item: Line (location: source ID 19, lines 8..15, bytes 221..469, hits: 2)
+- IC 59 -> Item 1
+- Creation code
+  - Refers to item: Function "run" (location: source ID 19, lines 8..15, bytes 221..469, hits: 2)
+- IC 158 -> Item 2
+- Creation code
+  - Refers to item: Line (location: source ID 19, lines 9..10, bytes 277..296, hits: 2)
+- IC 158 -> Item 3
+- Creation code
+  - Refers to item: Statement (location: source ID 19, lines 9..10, bytes 277..296, hits: 2)
+- IC 253 -> Item 4
+- Creation code
+  - Refers to item: Line (location: source ID 19, lines 10..11, bytes 306..355, hits: 2)
+- IC 253 -> Item 5
+- Creation code
+  - Refers to item: Statement (location: source ID 19, lines 10..11, bytes 306..355, hits: 2)
+- IC 255 -> Item 6
+- Creation code
+  - Refers to item: Statement (location: source ID 19, lines 10..11, bytes 336..355, hits: 2)
+- IC 298 -> Item 7
+- Creation code
+  - Refers to item: Line (location: source ID 19, lines 11..12, bytes 365..404, hits: 2)
+- IC 298 -> Item 8
+- Creation code
+  - Refers to item: Statement (location: source ID 19, lines 11..12, bytes 365..404, hits: 2)
+- IC 439 -> Item 9
+- Creation code
+  - Refers to item: Line (location: source ID 19, lines 12..13, bytes 414..432, hits: 2)
+- IC 439 -> Item 10
+- Creation code
+  - Refers to item: Statement (location: source ID 19, lines 12..13, bytes 414..432, hits: 2)
+- IC 534 -> Item 11
+- Creation code
+  - Refers to item: Line (location: source ID 19, lines 13..14, bytes 442..462, hits: 2)
+- IC 534 -> Item 12
+- Creation code
+  - Refers to item: Statement (location: source ID 19, lines 13..14, bytes 442..462, hits: 2)
+
+Anchors for Contract "Vm" (solc 0.8.18, source ID 14):
+
