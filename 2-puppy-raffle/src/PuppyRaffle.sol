@@ -32,7 +32,7 @@ contract PuppyRaffle is ERC721, Ownable {
     // mappings to keep track of token traits
     mapping(uint256 => uint256) public tokenIdToRarity;
     mapping(uint256 => string) public rarityToUri;
-    mapping(uint256 => string) public rarityToName;
+    mapping(uint256 => string) public rarityToName;  
 
     // Stats for the common puppy (pug)
     string private commonImageUri = "ipfs://QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8";
@@ -77,27 +77,33 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @notice duplicate entrants are not allowed
     /// @param newPlayers the list of players to enter the raffle
     function enterRaffle(address[] memory newPlayers) public payable {
+        // q were custom reverts a thing in 0.7.6 of solidity?
+        // q what if it's 0?
         require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle");
         for (uint256 i = 0; i < newPlayers.length; i++) {
-            players.push(newPlayers[i]);
+            // q What resets the players array?
+            players.push(newPlayers[i]);                               
         }
 
         // Check for duplicates
-        for (uint256 i = 0; i < players.length - 1; i++) {
-            for (uint256 j = i + 1; j < players.length; j++) {
+        // @audit DoS 
+        for (uint256 i = 0; i < players.length - 1; i++) {                         
+            for (uint256 j = i + 1; j < players.length; j++) {                     
                 require(players[i] != players[j], "PuppyRaffle: Duplicate player");
-            }
-        }
+            }                                                                      
+        }                                                                          
         emit RaffleEnter(newPlayers);
     }
 
     /// @param playerIndex the index of the player to refund. You can find it externally by calling `getActivePlayerIndex`
     /// @dev This function will allow there to be blank spots in the array
     function refund(uint256 playerIndex) public {
+        // @audit MEV (maximal extractable value)
         address playerAddress = players[playerIndex];
         require(playerAddress == msg.sender, "PuppyRaffle: Only the player can refund");
         require(playerAddress != address(0), "PuppyRaffle: Player already refunded, or is not active");
 
+        // @audit Reentrancy
         payable(msg.sender).sendValue(entranceFee);
 
         players[playerIndex] = address(0);
@@ -113,6 +119,8 @@ contract PuppyRaffle is ERC721, Ownable {
                 return i;
             }
         }
+        // q waht if the player is at index 0
+        // @audit if the player is at index 0, it'll return 0 and a player might think they are not active 
         return 0;
     }
 
