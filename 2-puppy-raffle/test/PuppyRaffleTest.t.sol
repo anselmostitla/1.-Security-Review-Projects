@@ -250,14 +250,6 @@ contract PuppyRaffleTest is Test {
         players[3] = playerFour;
         puppyRaffle.enterRaffle{value: entranceFee * 4}(players);
 
-        // uint256 balanceBefore = address(playerOne).balance;
-        // uint256 indexOfPlayer = puppyRaffle.getActivePlayerIndex(playerOne);
-
-        // vm.prank(playerOne);
-        // puppyRaffle.refund(indexOfPlayer);
-
-        // assertEq(address(playerOne).balance, balanceBefore + entranceFee);
-
         ReentrancyAttacker attackerContract = new ReentrancyAttacker(puppyRaffle);
         address attackUser = makeAddr("attackUser");
         vm.deal(attackUser, 1 ether); // to give attackUser some money
@@ -285,6 +277,28 @@ contract PuppyRaffleTest is Test {
         (bool success, ) = payable(address(puppyRaffle)).call{value: 1 ether}("");
         require(success);
     }
+
+    function testWithdrawFeesToZeroAddress() public playersEntered {
+        address feeAddress = address(0);
+        puppyRaffle = new PuppyRaffle(entranceFee, feeAddress, duration);
+
+        address[] memory players = new address[](4);
+        players[0] = playerOne;
+        players[1] = playerTwo;
+        players[2] = playerThree;
+        players[3] = playerFour;
+        puppyRaffle.enterRaffle{value: entranceFee * 4}(players);
+
+        vm.warp(block.timestamp + duration + 1);
+        vm.roll(block.number + 1);
+
+        uint256 expectedPrizeAmount = ((entranceFee * 4) * 20) / 100;
+
+        puppyRaffle.selectWinner();
+        puppyRaffle.withdrawFees();
+        assertEq(address(feeAddress).balance, expectedPrizeAmount);
+    }
+
 }
 
 contract ReentrancyAttacker {
