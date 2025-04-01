@@ -19,13 +19,14 @@ import { IERC20 } from "forge-std/interfaces/IERC20.sol";
 
 contract PoolFactory {
     error PoolFactory__PoolAlreadyExists(address tokenAddress);
+    // written - info this error is not used
     error PoolFactory__PoolDoesNotExist(address tokenAddress);
 
     /*//////////////////////////////////////////////////////////////
                             STATE VARIABLES
     //////////////////////////////////////////////////////////////*/
-    mapping(address token => address pool) private s_pools;
-    mapping(address pool => address token) private s_tokens;
+    mapping(address token => address pool) private s_pools; // e (explainer) probably poolToken -> pool
+    mapping(address pool => address token) private s_tokens; // e (explainer) mapping back 
 
     address private immutable i_wethToken;
 
@@ -38,17 +39,23 @@ contract PoolFactory {
                                FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     constructor(address wethToken) {
+        // written - info - lacking zero address check / lacks a zero-check on
         i_wethToken = wethToken;
     }
 
     /*//////////////////////////////////////////////////////////////
                            EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
+    // e tokenAddress -> weth for a token/weth pool 
     function createPool(address tokenAddress) external returns (address) {
         if (s_pools[tokenAddress] != address(0)) {
             revert PoolFactory__PoolAlreadyExists(tokenAddress);
         }
+        // e "T-Swap DAI"
+        // q weird ERC20 "what if the name function reverts?"
         string memory liquidityTokenName = string.concat("T-Swap ", IERC20(tokenAddress).name());
+        // "tsUSDC"
+        // @written - info Should this be .symbol() not .name(). Do you mean .symbol() instead of .name()
         string memory liquidityTokenSymbol = string.concat("ts", IERC20(tokenAddress).name());
         TSwapPool tPool = new TSwapPool(tokenAddress, i_wethToken, liquidityTokenName, liquidityTokenSymbol);
         s_pools[tokenAddress] = address(tPool);
