@@ -1,0 +1,74 @@
+This format or layout is very important:
+
+### [S-#] TITLE (Root Cause + Impact)
+
+**Description:**
+
+Explanatory text of the vulnerability related to the Description
+
+**Impact:**
+
+Explanatory text of the vulnerability related to the Impact
+
+**Proof of Concept:**
+Explanatory text of the vulnerability related to the proof of concept (section-1 of the proof of concept)
+
+shell/javascript/solidity code if neccessary (section-2 of the proof of concept)
+
+Some other text of the vulnerability related to the proof of concept (section-3 of the proof of concept)
+
+(remember put everything of this parat as a markdown, include **Proof of Concept:**, section-1, section-2, section-3 as part of a markdown file, do not separate them, because you are putting apart)
+
+
+**Recommended Mitigation**
+
+Explanatory text of the vulnerability related to the recommended mitigation (section-A of the recommended mitigation)
+
+shell/javascript/solidity code if neccessary (section-B of the recommended mitigation)
+
+Some other text of the vulnerability related to the recommended mitigation (section-C of the recommended mitigation)
+
+(remember put everything of this parat as a markdown, include **Proof of Concept:**, section-A, section-B, section-C as part of a markdown file, do not separate them, because you are separating them)
+
+
+
+This is the vulnerability I found in a smart contract (it is marked with @audit):
+
+
+    // @audit - info where is the natspect - this is a very important function without a natspect
+    function swapExactInput(
+        IERC20 inputToken,
+        uint256 inputAmount,
+        IERC20 outputToken,
+        uint256 minOutputAmount,
+        uint64 deadline
+    )
+        public
+        revertIfZero(inputAmount)
+        revertIfDeadlinePassed(deadline)
+        returns (uint256 output)
+    {
+        uint256 inputReserves = inputToken.balanceOf(address(this));
+        uint256 outputReserves = outputToken.balanceOf(address(this));
+
+        uint256 outputAmount = getOutputAmountBasedOnInput(
+            inputAmount,
+            inputReserves,
+            outputReserves
+        );
+
+        if (outputAmount < minOutputAmount) {
+            revert TSwapPool__OutputTooLow(outputAmount, minOutputAmount);
+        }
+
+        _swap(inputToken, inputAmount, outputToken, outputAmount);
+    }
+
+
+I want you to write a short report as markdown file, that is I want you to create a title (do not include in the title this "(Root Cause + Impact)" it just a guide for you), a description, the impact (of the vulnerability) and the recommended mitigation (of the vulnerability).
+
+For every variable or function name or element in the smart contract please preceed or prefix it with the name of the smart contract followed by "::" and then followed by the name of the variable, or the name of the function or the element we are dealing. Except when the smart contract element is in a shell/javascript/solidity piece of code, please do not precceed or prefix it with the name of the smart contract.
+
+The name of the smart contract I am analysing is: TSwapPool
+
+Please generate me a short markdown file
