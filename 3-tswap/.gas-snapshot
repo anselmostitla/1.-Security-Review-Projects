@@ -1,0 +1,6 @@
+PoolFactoryTest:testCantCreatePoolIfExists() (gas: 2418164)
+PoolFactoryTest:testCreatePool() (gas: 2420134)
+TSwapPoolTest:testCollectFees() (gas: 256671)
+TSwapPoolTest:testDeposit() (gas: 161135)
+TSwapPoolTest:testDepositSwap() (gas: 214924)
+TSwapPoolTest:testWithdraw() (gas: 189950)
