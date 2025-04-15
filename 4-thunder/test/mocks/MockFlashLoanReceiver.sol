@@ -46,6 +46,13 @@ contract MockFlashLoanReceiver {
         return true;
     }
 
+    // function executeOperation2() external returns(bool){
+    //     // get token balance in this smart contract
+    //     // unititator must be owner and msg.sender must be thunderLoand
+    //     // thunderloan pays the loan
+    //     return true;
+    // }
+
     function getBalanceDuring() external view returns (uint256) {
         return s_balanceDuringFlashLoan;
     }

@@ -19,12 +19,12 @@ contract BaseTest is Test {
 
     function setUp() public virtual {
         thunderLoan = new ThunderLoan();
-        mockPoolFactory = new MockPoolFactory();
+        mockPoolFactory = new MockPoolFactory(); // creates a pool giving the token (q is the token an underlying token like usdc, dae etc)
 
-        weth = new ERC20Mock();
-        tokenA = new ERC20Mock();
+        weth = new ERC20Mock(); // This only has extra mint and burn
+        tokenA = new ERC20Mock();   // This only has extra mint and burn
 
-        mockPoolFactory.createPool(address(tokenA));
+        mockPoolFactory.createPool(address(tokenA)); // it seems that the parameter is a token not neccessarily an underlying token
         proxy = new ERC1967Proxy(address(thunderLoan), "");
         thunderLoan = ThunderLoan(address(proxy));
         thunderLoan.initialize(address(mockPoolFactory));
